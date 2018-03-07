@@ -4,5 +4,15 @@ import './index.css';
 import AppContainer from './AppContainer';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<AppContainer />, document.getElementById('root'));
+const rootElement = document.getElementById('root')
+
+ReactDOM.render(<AppContainer />, rootElement);
+
+if (module.hot) {
+  module.hot.accept('./AppContainer', () => {
+    const NextApp = require('./AppContainer').default
+    ReactDOM.render(<NextApp />, rootElement)
+  })
+}
+
 registerServiceWorker();

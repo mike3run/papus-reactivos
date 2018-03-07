@@ -2,20 +2,39 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const App = ({ papus, ...rest }) =>
+const App = ({
+  onSubmit,
+  username,
+  onChange,
+  picture,
+  fullName,
+  hasLoaded = false
+}) =>
   <div className="App">
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
-      <h1 className="App-title">Welcome to React {logo}</h1>
+      <h1 className="App-title">Github User Finder</h1>
     </header>
-    <p className="App-intro">
-      To get started, edit <code>src/App.js</code> and save to reload.
-    </p>
-    <ul>
-      {papus && papus.map((papu, index) =>
-        <li key={index}>{papu}</li>
-      )}
-    </ul>
+
+    <div className='search-bar'>
+      <form onSubmit={onSubmit}>
+        <label htmlFor='username'>Username:</label>
+        <input
+          type='text'
+          placeholder='Username'
+          id='username'
+          value={username}
+          onChange={onChange} />
+        <button type='submit'>Submit</button>
+      </form>
+    </div>
+
+    {hasLoaded &&
+    <div className='user'>
+      <img src={picture} alt={username} />
+      <h1>{fullName}</h1>
+    </div>
+    }
   </div>
 
 export default App;
